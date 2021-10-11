@@ -116,3 +116,52 @@ Para ver las imagenes que tenemos en nuestro registro local podemos correr el co
 
     docker run busybox:1.24 echo "hello world"
 este comando descargar la imagen de nombre busybox y especificamos la version 1.24, luego especificamos el comando que queremos correr dentro de ese contenedor en este cado el comando `echo "hello World"`
+
+### Profundizando en contenedores
+En la seccion anterior vimos como correr un contenedor en primer plano pero en la mayoria de los casos los contenedores van a estar corriendo en segundo plano para eso necesitamos iniciar un contenedor en *detached mode* utilizando el comando `run` con la bandera `-d`. Esto significa que podemos iniciar el contenedor y utilizar la consola para correr otros comandos
+
+    $  docker run -d busybox:1.24 sleep 1000
+
+el comando `sleep 1000` es utilizado para generar un delay por una cantidad especifica de tiempo.
+
+al ejecutar el comando `docker run -d` este nos devuelve un hash el cual indica el id del contenedor, podemos verificar los contenedor que estan corriendo utilizando el comando 
+
+    $ docker ps
+
+`docker ps` nos ofrece informacion como el `CONTAINER ID` , el `COMMAND` para ver el comando que se esta ejecutando, `STATUS` y `NAMES` .
+
+Si utilizamos el comando `ps -a` nos da informacion sobre todos los contenedor que hayamos ejecutado incluso los que ya no esten en ejecucion
+
+    $ docker ps -a
+
+Si no queremos mantener en el registro el contenedor que ejecutamos añadimos la bandera `-rm`y docker lo removera automaticamente una vez que el contenedor se deje de ejecutar
+
+    $ docker run --rm busybox:1.24 sleep 1
+
+Podemos especificar el nombre del contenedor que queremos correr
+
+    docker run --name hello_world busybox:1.24
+  
+  si hacemos `docker ps -a` veremos el contenedor con el nombre que le indicamos, en este caso `hello_world`. Si no especificamos un nombre para el contenedor docker asignara un nombre por defecto cuando corramos el comando `run`. 
+
+Si queremos mas informacion a bajo nivel sobre los contenedores o imagenes podemos usar el comando docker inspect
+
+    $ docker inspect <container_id>
+esto nos desplegara un objeto JSON con informacion como `IP`, `MAC adress`, `ImageId`.
+
+### Mapeo de puertos y logs
+
+#### Mapeo Puertos
+El formato  para mapear un puerto a otro puerto usamos es  `-p host_port: container_port` en este caso probamos con una imagen de tomcat
+
+    $ docker run -it -p 8888:8080 tomcat:8.0
+
+Una vez levantado el contenedor podemos acceder al servidor tomcat a traves del navegador en la ruta `localhost:8888.
+
+para salir del contenedor usamos `ctrl+c`
+
+#### Logs
+para ver los logs del contenedor usamos el comando 
+
+    $ docker logs <container_id>
+
