@@ -149,6 +149,10 @@ Si queremos mas informacion a bajo nivel sobre los contenedores o imagenes podem
     $ docker inspect <container_id>
 esto nos desplegara un objeto JSON con informacion como `IP`, `MAC adress`, `ImageId`.
 
+para bajar un contenedor que este corriendo usamos el comando 
+
+    $docker stop <id_contenedor>
+
 ### Mapeo de puertos y logs
 
 #### Mapeo Puertos
