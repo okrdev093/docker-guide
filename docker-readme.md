@@ -231,11 +231,12 @@ Si por ejemplo queremos mapear el puerto 3000 y 8080  de nuestro host al puerto 
 Simplemente agregamos mas puertos usando la bandera `-p`
 ahora podremos acceder al servidor de nginx desde nuestro navegador usando el puerto 8080 y el puerto 3000
 
-
 #### Logs
 para ver los logs del contenedor usamos el comando 
 
     $ docker logs <container_id>
+
+
 
 
 
